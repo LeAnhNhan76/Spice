@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-Spice-E41500C6-E276-45FA-B3A7-5D5B3DDD7C3B</UserSecretsId>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.2" />
+  </ItemGroup>
+
+</Project>
