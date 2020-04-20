@@ -5,11 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Spice.Common;
 using Spice.Models;
 
 namespace Spice.Controllers
 {
-    [Area("Customer")]
+    [Area(Constant.Area_Customer)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
