@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Spice.Common
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +25,7 @@
                                 Content Management
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                <a class="dropdown-item">Category</a>
+                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Category" asp-area="@Constant.Area_Admin">Category</a>
                                 <a class="dropdown-item">Sub Category</a>
                                 <a class="dropdown-item">MenuItem</a>
                                 <a class="dropdown-item">Coupons</a>
