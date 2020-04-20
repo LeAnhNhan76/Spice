@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-Spice-E41500C6-E276-45FA-B3A7-5D5B3DDD7C3B</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.2" />
@@ -20,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
