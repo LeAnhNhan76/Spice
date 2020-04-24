@@ -1,0 +1,27 @@
+﻿@using Spice.Common
+@model Spice.Models.Category
+
+@{
+    ViewData[Constant.Title] = Constant.Details;
+    Layout = Constant.View_Layout;
+}
+
+<br />
+<h2>Details Category</h2>
+<br />
+
+<div class="border backgroundWhite">
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Name" class="col-form-label"></label>
+        </div>
+        <div class="col-5">
+            <input asp-for="Name" class="form-control" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-5 offset-2">
+            <partial name="@Constant.PartialView_DetailsAndBackToListButtonPartial" model="@Model.Id" />
+        </div>
+    </div>
+</div>

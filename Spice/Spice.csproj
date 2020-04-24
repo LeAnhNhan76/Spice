@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
+    <Compile Remove="wwwroot\font\**" />
     <Content Remove="Controllers\**" />
+    <Content Remove="wwwroot\font\**" />
     <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="wwwroot\font\**" />
     <None Remove="Controllers\**" />
+    <None Remove="wwwroot\font\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +31,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
