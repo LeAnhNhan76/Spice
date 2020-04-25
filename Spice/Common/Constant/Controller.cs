@@ -10,5 +10,9 @@
         /// category
         /// </summary>
         public const string Controller_Category = "category";
+        /// <summary>
+        /// subcategory
+        /// </summary>
+        public const string Controller_SubCategory = "subcategory";
     }
 }

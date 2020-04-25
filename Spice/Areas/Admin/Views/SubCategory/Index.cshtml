@@ -1,15 +1,16 @@
 ﻿@using Spice.Common
-@model IEnumerable<Category>
+@model IEnumerable<SubCategory>
 
 @{
     ViewData[Constant.Title] = Constant.Action_Index;
     Layout = Constant.View_Layout;
 }
-<br /><br />
+<br />
+<br />
 <div class="border backgroundWhite">
     <div class="row">
         <div class="col-6">
-            <h2 class="text-info">Category List</h2>
+            <h2 class="text-info">Sub Category List</h2>
         </div>
         <div class="col-6 text-right">
             <partial name="@Constant.PartialView_CreateButtonPartial" />
@@ -22,15 +23,17 @@
                 <thead>
                     <tr class="table-secondary">
                         <th>@Html.DisplayNameFor(m => m.Name)</th>
+                        <th>@Html.DisplayNameFor(m => m.Category.Name)</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <td>@item.Name</td>
+                            <td>@item.Category.Name</td>
                             <td>
                                 <partial name="@Constant.PartialView_TableButtonPartial" model="@item.Id" />
                             </td>
@@ -41,7 +44,7 @@
         }
         else
         {
-            <p>No Category exists...</p>
+            <p>No Sub Category exists...</p>
         }
     </div>
 </div>
