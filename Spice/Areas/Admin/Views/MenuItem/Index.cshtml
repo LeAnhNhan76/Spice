@@ -1,0 +1,54 @@
+﻿@using Spice.Common
+@model IEnumerable<MenuItem>
+
+@{
+    ViewData[Constant.Title] = Constant.Action_Index;
+    Layout = Constant.View_Layout;
+}
+<br />
+<br />
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Menu Item List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="@Constant.PartialView_CreateButtonPartial" />
+        </div>
+    </div>
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>@Html.DisplayNameFor(m => m.Name)</th>
+                        <th>@Html.DisplayNameFor(m => m.Price)</th>
+                        <th>@Html.DisplayNameFor(m => m.CategoryId)</th>
+                        <th>@Html.DisplayNameFor(m => m.SubCategoryId)</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Price</td>
+                            <td>@item.Category.Name</td>
+                            <td>@item.SubCategory.Name</td>
+                            <td>
+                                <partial name="@Constant.PartialView_TableButtonPartial" model="@item.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No Menu Item exists...</p>
+        }
+    </div>
+</div>

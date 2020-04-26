@@ -14,5 +14,17 @@
         /// subcategory
         /// </summary>
         public const string Controller_SubCategory = "subcategory";
+        /// <summary>
+        /// menuitem
+        /// </summary>
+        public const string Controller_MenuItem = "menuitem";
+        /// <summary>
+        /// coupon
+        /// </summary>
+        public const string Controller_Coupon = "coupon";
+        /// <summary>
+        /// user
+        /// </summary>
+        public const string Controller_User = "user";
     }
 }

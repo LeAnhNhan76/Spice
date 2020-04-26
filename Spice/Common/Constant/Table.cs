@@ -10,5 +10,9 @@
         /// Table_SubCategories
         /// </summary>
         public const string Table_SubCategories = "SubCategories";
+        /// <summary>
+        /// Table_MenuItems
+        /// </summary>
+        public const string Table_MenuItems = "MenuItems";
     }
 }

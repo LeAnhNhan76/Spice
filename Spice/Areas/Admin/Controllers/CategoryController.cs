@@ -27,18 +27,43 @@ namespace Spice.Areas.Admin.Controllers
 
         #region Methods
 
+        #region List
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _db.Category.ToListAsync());
         }
-        
+
+        #endregion List
+
+        #region Details
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var category = await _db.Category.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        #endregion Details
+
+        #region Add & Edit
+
         [HttpGet]
         public IActionResult Create()
         {
-            return  View();
+            return View();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
@@ -80,20 +105,9 @@ namespace Spice.Areas.Admin.Controllers
             return View(category);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var category = await _db.Category.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
+        #endregion Add && Edit
+
+        #region Delete
 
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
@@ -115,7 +129,7 @@ namespace Spice.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _db.Category.FindAsync(id);
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
@@ -124,6 +138,7 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion Delete
 
         #endregion Methods
     }

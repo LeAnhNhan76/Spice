@@ -28,9 +28,9 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
                                 <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Category" asp-area="@Constant.Area_Admin">Category</a>
                                 <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_SubCategory" asp-area="@Constant.Area_Admin">Sub Category</a>
-                                <a class="dropdown-item">MenuItem</a>
-                                <a class="dropdown-item">Coupons</a>
-                                <a class="dropdown-item">Users</a>
+                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_MenuItem" asp-area="@Constant.Area_Admin">Menu Item</a>
+                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Coupon" asp-area="@Constant.Area_Admin">Coupons</a>
+                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_User" asp-area="@Constant.Area_Admin">Users</a>
                             </div>
                         </li>
 
@@ -53,9 +53,10 @@
 
     <footer class="border-top pl-3 footer text-white-50" style="background-color: #343a40">
         <div class="container">
-            &copy; 2020 - Spice 
+            &copy; 2020 - Spice
         </div>
     </footer>
+    <script src="https://cdn.tiny.cloud/1/kt75fibj5sckxivts92z8n10ies403wcji4gog2wdjntvn2k/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
