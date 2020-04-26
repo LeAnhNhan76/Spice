@@ -22,5 +22,9 @@
         /// delete
         /// </summary>
         public const string Action_Delete = "delete";
+        /// <summary>
+        /// getsubcategorybycategory
+        /// </summary>
+        public const string Action_GetSubCategoryByCategory = "getsubcategorybycategory";
     }
 }

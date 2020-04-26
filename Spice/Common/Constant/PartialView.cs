@@ -26,5 +26,13 @@
         /// _TableButtonPartial
         /// </summary>
         public const string PartialView_TableButtonPartial = "_TableButtonPartial";
+        /// <summary>
+        /// _StatusMessagePartial
+        /// </summary>
+        public const string PartialView_StatusMessagePartial = "_StatusMessagePartial";
+        /// <summary>
+        /// _ValidationScriptsPartial
+        /// </summary>
+        public const string PartialView_ValidationScriptsPartial = "_ValidationScriptsPartial"; 
     }
 }
