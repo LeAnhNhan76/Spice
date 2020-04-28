@@ -69,7 +69,7 @@
                     $listSubCategory = $('#SubCategoryList');
                     $.ajax({
                         url: '/@Constant.Area_Admin/@Constant.Controller_SubCategory/@Constant.Action_GetSubCategoryByCategory/' + categorySelected,
-                        type: 'POST',
+                        type: '@Constant.HttpMethod_GET',
                         dataType: 'text',
                         success: function (data) {
                             result = JSON.parse(data);

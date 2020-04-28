@@ -33,7 +33,7 @@
                 <label asp-for="MenuItem.Description" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                @Html.TextAreaFor(m => m.MenuItem.Description) 
+                @Html.TextAreaFor(m => m.MenuItem.Description)
             </div>
             <span asp-validation-for="MenuItem.Description" class="text-danger"></span>
         </div>
@@ -59,7 +59,7 @@
                 <label asp-for="MenuItem.CategoryId" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <select asp-for="MenuItem.CategoryId" name="CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItem(Model.MenuItem.CategoryId)" class="form-control"></select>
+                <select asp-for="@Model.MenuItem.CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItem(Model.MenuItem.CategoryId)" class="form-control"></select>
             </div>
         </div>
         <div class="form-group row">
@@ -67,7 +67,7 @@
                 <label asp-for="MenuItem.SubCategoryId" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <select asp-for="MenuItem.SubCategoryId" name="SubCategoryId" id="SubCategoryId" asp-items="@(new SelectList(string.Empty, "Id", "Name"))" class="form-control"></select>
+                <select asp-for="@Model.MenuItem.SubCategoryId" name="SubCategoryId" id="SubCategoryId" asp-items="@(new SelectList(string.Empty, "Id", "Name"))" class="form-control"></select>
             </div>
         </div>
         <div class="form-group row">
@@ -75,7 +75,7 @@
                 <label asp-for="MenuItem.Spicyness" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <select asp-for="MenuItem.Spicyness" name="Spicyness" id="Spicyness" asp-items="Html.GetEnumSelectList<MenuItem.ESpicy>()" class="form-control"></select>
+                <select asp-for="@Model.MenuItem.Spicyness" id="Spicyness" asp-items="Html.GetEnumSelectList<MenuItem.ESpicy>()" class="form-control"></select>
             </div>
         </div>
         <div class="form-group">
@@ -86,7 +86,8 @@
     </div>
 </form>
 
-@section Scripts{ 
+@section Scripts{
+
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -94,4 +95,37 @@
             menubar: 'file edit format'
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            menuItemCreate.onGetSubCategory();
+            $('#CategoryId').on('change', function () {
+                menuItemCreate.onGetSubCategory();
+            });
+        });
+
+        var menuItemCreate = {
+            onGetSubCategory: function () {
+                var url = '@Url.Content("~/")' + '@Constant.Area_Admin/@Constant.Controller_SubCategory/@Constant.Action_GetSubCategoryByCategory';
+                var param = {
+                    id: $('#CategoryId').val()
+                };
+                $.getJSON(url, param, function (data) {
+                    menuItemCreate.onGenerateSubCategory(data);
+                });
+            },
+            onGenerateSubCategory: function (data) {
+                $('#SubCategoryId').empty();
+                if (data != null && data != undefined && data.length > 0) {
+                    var html = '';
+                    $.each(data, function (i, subCategory) {
+                        html += '<option value="' + subCategory.value + '">' + subCategory.text + '</option>';
+                    });
+
+                    $('#SubCategoryId').html(html);
+                }
+            }
+        }
+    </script>
+    @{ await Html.RenderPartialAsync(Constant.PartialView_ValidationScriptsPartial); }
 }

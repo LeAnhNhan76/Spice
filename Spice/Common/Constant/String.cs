@@ -26,5 +26,9 @@
         /// Details
         /// </summary>
         public const string Details = "Details";
+        /// <summary>
+        /// images
+        /// </summary>
+        public const string Directory_Images = "images";
     }
 }

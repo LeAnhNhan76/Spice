@@ -56,34 +56,34 @@
 @section Scripts{
     @{ await Html.RenderPartialAsync(Constant.PartialView_ValidationScriptsPartial);}
     <script>
-            $(function () {
-                subCategoryEdit.onUpdateSubCategoryList();
-            });
+                $(function () {
+                    subCategoryEdit.onUpdateSubCategoryList();
+                });
 
-            var subCategoryEdit = {
-                onUpdateSubCategoryList: function () {
+                var subCategoryEdit = {
+                    onUpdateSubCategoryList: function () {
 
-                    var categorySelected = $('#ddlCategoryList').val();
+                        var categorySelected = $('#ddlCategoryList').val();
 
-                    $listSubCategory = $('#SubCategoryList');
-                    $.ajax({
-                        url: '/@Constant.Area_Admin/@Constant.Controller_SubCategory/@Constant.Action_GetSubCategoryByCategory/' + categorySelected,
-                        type: 'POST',
-                        dataType: 'text',
-                        success: function (data) {
-                            result = JSON.parse(data);
-                            if (result != undefined && result != null && result.length > 0) {
-                                $listSubCategory.html('');
-                                $listSubCategory.append('<ul class="list-group">');
-                                for (var i = 0; i < result.length; i++) {
-                                    $listSubCategory.append('<li class="list-group-item">' + result[i].text + '</li>');
+                        $listSubCategory = $('#SubCategoryList');
+                        $.ajax({
+                            url: '/@Constant.Area_Admin/@Constant.Controller_SubCategory/@Constant.Action_GetSubCategoryByCategory/' + categorySelected,
+                            type: '@Constant.HttpMethod_GET',
+                            dataType: 'text',
+                            success: function (data) {
+                                result = JSON.parse(data);
+                                if (result != undefined && result != null && result.length > 0) {
+                                    $listSubCategory.html('');
+                                    $listSubCategory.append('<ul class="list-group">');
+                                    for (var i = 0; i < result.length; i++) {
+                                        $listSubCategory.append('<li class="list-group-item">' + result[i].text + '</li>');
+                                    }
+                                    $listSubCategory.append('</ul>');
                                 }
-                                $listSubCategory.append('</ul>');
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
     </script>
 }

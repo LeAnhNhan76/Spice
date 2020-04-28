@@ -201,7 +201,7 @@ namespace Spice.Areas.Admin.Controllers
 
         #region Extensions
 
-        [HttpPost, ActionName(Constant.Action_GetSubCategoryByCategory)]
+        [HttpGet, ActionName(Constant.Action_GetSubCategoryByCategory)]
         public async Task<IActionResult> GetSubCategoryByCategory(int id)
         {
             List<SubCategory> subCategory = new List<SubCategory>();

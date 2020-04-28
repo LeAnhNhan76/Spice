@@ -7,7 +7,7 @@
 }
 
 <br />
-    <h2>Create Category</h2>
+<h2>Create Category</h2>
 <br />
 
 <form method="post" asp-action="@Constant.Action_Create">
@@ -29,3 +29,7 @@
         </div>
     </div>
 </form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync(Constant.PartialView_ValidationScriptsPartial); }
+}
