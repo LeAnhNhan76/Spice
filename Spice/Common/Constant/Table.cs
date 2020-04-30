@@ -14,5 +14,9 @@
         /// Table_MenuItems
         /// </summary>
         public const string Table_MenuItems = "MenuItems";
+        /// <summary>
+        /// Table_Coupons
+        /// </summary>
+        public const string Table_Coupons = "Coupons";
     }
 }
