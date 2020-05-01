@@ -55,6 +55,10 @@
         /// </summary>
         public const string Coupon = "Coupon";
         /// <summary>
+        /// Register
+        /// </summary>
+        public const string Register = "Register";
+        /// <summary>
         /// \images\mild.png
         /// </summary>
         public const string ImageMildPath = @"\images\mild.png";
@@ -66,5 +70,9 @@
         /// \images\verySpicy.png
         /// </summary>
         public const string ImageVerySpicyPath = @"\images\verySpicy.png";
+        /// <summary>
+        /// DefaultConnection
+        /// </summary>
+        public const string DefaultConnection = "DefaultConnection";
     }
 }

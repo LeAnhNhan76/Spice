@@ -15,5 +15,22 @@ namespace Spice.Common
         /// .png
         /// </summary>
         public const string File_PNG = ".png";
+        /// <summary>
+        /// Manager
+        /// </summary>
+        public const string ManagerUser = "Manager";
+        /// <summary>
+        /// Kitchen
+        /// </summary>
+        public const string KitchenUser = "Kitchen";
+        /// <summary>
+        /// FrontDesk
+        /// </summary>
+        public const string FrontDeskUser = "FrontDesk";
+        /// <summary>
+        /// Customer
+        /// </summary>
+        public const string CustomerEndUser = "Customer";
+
     }
 }
