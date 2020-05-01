@@ -33,6 +33,10 @@
         /// <summary>
         /// _ValidationScriptsPartial
         /// </summary>
-        public const string PartialView_ValidationScriptsPartial = "_ValidationScriptsPartial"; 
+        public const string PartialView_ValidationScriptsPartial = "_ValidationScriptsPartial";
+        /// <summary>
+        /// _ThumbnailAreaPartial
+        /// </summary>
+        public const string PartialView_ThumbnailAreaPartial = "_ThumbnailAreaPartial";
     }
 }

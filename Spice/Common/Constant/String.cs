@@ -30,5 +30,41 @@
         /// images
         /// </summary>
         public const string Directory_Images = "images";
+        /// <summary>
+        /// data:image/png;base64,
+        /// </summary>
+        public const string ImageSourceBytesBase64= "data:image/png;base64,";
+        /// <summary>
+        /// Home
+        /// </summary>
+        public const string Home = "Home";
+        /// <summary>
+        /// Category
+        /// </summary>
+        public const string Category = "Category";
+        /// <summary>
+        /// SubCategory
+        /// </summary>
+        public const string SubCategory = "SubCategory";
+        /// <summary>
+        /// MenuItem
+        /// </summary>
+        public const string MenuItem = "MenuItem";
+        /// <summary>
+        /// Coupon
+        /// </summary>
+        public const string Coupon = "Coupon";
+        /// <summary>
+        /// \images\mild.png
+        /// </summary>
+        public const string ImageMildPath = @"\images\mild.png";
+        /// <summary>
+        /// \images\spicy.png
+        /// </summary>
+        public const string ImageSpicyPath = @"\images\spicy.png";
+        /// <summary>
+        /// \images\verySpicy.png
+        /// </summary>
+        public const string ImageVerySpicyPath = @"\images\verySpicy.png";
     }
 }
