@@ -14,7 +14,7 @@
 <partial name="@Constant.PartialView_StatusMessagePartial" model="Model.StatusMessage" />
 <div class="border backgroundWhite row">
     <div class="col-8 border-right">
-        <form asp-action="@Constant.Action_Edit">
+        <form method="post" asp-action="@Constant.Action_Edit">
             <input type="hidden" asp-for="SubCategory.Id" />
             <input type="hidden" asp-for="SubCategory.CategoryId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

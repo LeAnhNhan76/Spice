@@ -34,13 +34,22 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        var picture = "data:image/png;base64," + Convert.ToBase64String(item.Picture);
+                        var picture = string.Empty;
+                        if(item.Picture != null && item.Picture.Length > 0)
+                        {
+                            picture = "data:image/png;base64," + Convert.ToBase64String(item.Picture);
+                        }
                         <tr>
                             <td>@item.Name</td>
                             <td>@item.Discount</td>
                             <td>@item.MinimumAmount</td>
                             <td>@Html.DisplayFor(m => item.IsActive)</td>
-                            <td><img src="@picture" width="100%" /></td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(picture))
+                                {
+                                    <img src="@picture" width="100%" />
+                                }
+                            </td>
                             <td>
                                 <partial name="@Constant.PartialView_TableButtonPartial" model="@item.Id" />
                             </td>
