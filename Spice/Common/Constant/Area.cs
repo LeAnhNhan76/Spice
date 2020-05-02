@@ -10,5 +10,9 @@
         /// Area_Admin
         /// </summary>
         public const string Area_Admin = "admin";
+        /// <summary>
+        /// Area_Identity
+        /// </summary>
+        public const string Area_Identity = "identity";
     }
 }

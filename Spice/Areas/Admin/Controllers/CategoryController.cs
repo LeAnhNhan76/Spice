@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
 using Spice.Data;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Spice.Areas.Admin.Controllers
 {
     [Area(Constant.Area_Admin)]
+    [Authorize(Roles = Constant.ManagerUser)]
     public class CategoryController : Controller
     {
         #region Properties

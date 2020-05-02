@@ -1,4 +1,7 @@
 ﻿@using Spice.Common
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +16,12 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="@Constant.Controller_Home" asp-action="@Constant.Action_Index">Spice</a>
+                <a class="navbar-brand" asp-area="" asp-controller="@Constant.Controller_Home" asp-action="@Constant.Action_Index">
+                <img src="@Constant.ImageMildPath"/>
+                <img src="@Constant.ImageSpicyPath"/>
+                <img src="@Constant.ImageVerySpicyPath"/>
+                <label class="text-info" style="cursor: pointer">Spice</label>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,24 +29,32 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown text-white-50">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Content Management
+                        @if (User.IsInRole(Constant.ManagerUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Content Management
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Category" asp-area="@Constant.Area_Admin">Category</a>
+                                    <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_SubCategory" asp-area="@Constant.Area_Admin">Sub Category</a>
+                                    <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_MenuItem" asp-area="@Constant.Area_Admin">Menu Item</a>
+                                    <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Coupon" asp-area="@Constant.Area_Admin">Coupons</a>
+                                    <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_User" asp-area="@Constant.Area_Admin">Users</a>
+                                </div>
+                            </li>
+                        }
+                        @{
+                            int count = 0;
+                            if (HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount) != null)
+                            {
+                                count = HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount).Value;
+                            }
+                        }
+                        <li style="color: white">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Category" asp-area="@Constant.Area_Admin">Category</a>
-                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_SubCategory" asp-area="@Constant.Area_Admin">Sub Category</a>
-                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_MenuItem" asp-area="@Constant.Area_Admin">Menu Item</a>
-                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_Coupon" asp-area="@Constant.Area_Admin">Coupons</a>
-                                <a class="dropdown-item" asp-action="@Constant.Action_Index" asp-controller="@Constant.Controller_User" asp-area="@Constant.Area_Admin">Users</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>

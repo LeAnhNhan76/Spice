@@ -23,6 +23,18 @@
         /// </summary>
         public const string Action_Delete = "delete";
         /// <summary>
+        /// register
+        /// </summary>
+        public const string Action_Register = "register";
+        /// <summary>
+        /// lock
+        /// </summary>
+        public const string Action_Lock = "lock";
+        /// <summary>
+        /// unlock
+        /// </summary>
+        public const string Action_UnLock = "unlock";
+        /// <summary>
         /// getsubcategorybycategory
         /// </summary>
         public const string Action_GetSubCategoryByCategory = "getsubcategorybycategory";

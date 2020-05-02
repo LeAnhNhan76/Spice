@@ -18,5 +18,9 @@
         /// Table_Coupons
         /// </summary>
         public const string Table_Coupons = "Coupons";
+        /// <summary>
+        /// Table_ShoppingCarts
+        /// </summary>
+        public const string Table_ShoppingCarts = "ShoppingCarts";
     }
 }

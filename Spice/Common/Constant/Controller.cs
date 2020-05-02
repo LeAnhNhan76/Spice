@@ -26,5 +26,9 @@
         /// user
         /// </summary>
         public const string Controller_User = "user";
+        /// <summary>
+        /// account
+        /// </summary>
+        public const string Controller_Account = "account";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
@@ -12,6 +13,7 @@ using Spice.Models;
 namespace Spice.Areas.Admin.Controllers
 {
     [Area(Constant.Area_Admin)]
+    [Authorize(Roles = Constant.ManagerUser)]
     public class CouponController : Controller
     {
         #region Properties

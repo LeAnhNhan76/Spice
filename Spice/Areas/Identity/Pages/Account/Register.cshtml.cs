@@ -80,6 +80,8 @@ namespace Spice.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var role = Request.Form["rdUserRole"].ToString();
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -116,9 +118,26 @@ namespace Spice.Areas.Identity.Pages.Account
                         await _roleManagement.CreateAsync(new IdentityRole(Constant.FrontDeskUser));
                     }
 
-                    await _userManager.AddToRoleAsync(user, Constant.ManagerUser);
+                    // aadd user role
 
-                    //_logger.LogInformation("User created a new account with password.");
+                    switch (role)
+                    {
+                        case Constant.KitchenUser:
+                            await _userManager.AddToRoleAsync(user, Constant.KitchenUser);
+                            break;
+                        case Constant.FrontDeskUser:
+                            await _userManager.AddToRoleAsync(user, Constant.FrontDeskUser);
+                            break;
+                        case Constant.ManagerUser:
+                            await _userManager.AddToRoleAsync(user, Constant.ManagerUser);
+                            break;
+                        default:
+                            await _userManager.AddToRoleAsync(user, Constant.CustomerEndUser);
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                    }
+
+                    _logger.LogInformation("User created a new account with password.");
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -137,8 +156,8 @@ namespace Spice.Areas.Identity.Pages.Account
                     //}
                     //else
                     //{
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+
+                    return RedirectToAction(Constant.Action_Index, Constant.Controller_User, new { area = Constant.Area_Admin });
                     //}
                 }
                 foreach (var error in result.Errors)

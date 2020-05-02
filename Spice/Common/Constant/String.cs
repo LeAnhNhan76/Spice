@@ -55,6 +55,14 @@
         /// </summary>
         public const string Coupon = "Coupon";
         /// <summary>
+        /// User
+        /// </summary>
+        public const string User = "User";
+        /// <summary>
+        /// ItemDetails
+        /// </summary>
+        public const string ItemDetails = "ItemDetails";
+        /// <summary>
         /// Register
         /// </summary>
         public const string Register = "Register";

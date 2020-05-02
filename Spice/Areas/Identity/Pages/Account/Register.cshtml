@@ -93,6 +93,18 @@
             </div>
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
+        @if (User.IsInRole(Constant.ManagerUser))
+        {
+            <div class="form-group row">
+                <div class="col-2">
+                </div>
+                <div class="col-5">
+                    <input type="radio" name="rdUserRole" value="@Constant.KitchenUser" checked/> @Constant.KitchenUser
+                    <input type="radio" name="rdUserRole" value="@Constant.FrontDeskUser" /> @Constant.FrontDeskUser
+                    <input type="radio" name="rdUserRole" value="@Constant.ManagerUser" /> @Constant.ManagerUser
+                </div>
+            </div>
+        }
         <div class="form-group row">
             <div class="col-5 offset-2">
                 <button type="submit" class="btn btn-primary form-control">Register</button>
