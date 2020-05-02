@@ -32,7 +32,7 @@ namespace Spice.Areas.Admin.Controllers
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            var applicationUser = await _db.ApplicationUser.Where(x => x.Id != claim.Value).ToListAsync();
+            var applicationUser = await _db.ApplicationUser.Where(u => u.Id != claim.Value).ToListAsync();
             return View(applicationUser);
         }
         #endregion
