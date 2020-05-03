@@ -30,5 +30,13 @@
         /// account
         /// </summary>
         public const string Controller_Account = "account";
+        /// <summary>
+        /// cart
+        /// </summary>
+        public const string Controller_Cart = "cart";
+        /// <summary>
+        /// order
+        /// </summary>
+        public const string Controller_Order = "order";
     }
 }

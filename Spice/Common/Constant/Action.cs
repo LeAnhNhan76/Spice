@@ -38,5 +38,33 @@
         /// getsubcategorybycategory
         /// </summary>
         public const string Action_GetSubCategoryByCategory = "getsubcategorybycategory";
+        /// <summary>
+        /// plus
+        /// </summary>
+        public const string Action_Plus = "plus";
+        /// <summary>
+        /// minus
+        /// </summary>
+        public const string Action_Minus = "minus";
+        /// <summary>
+        /// remove
+        /// </summary>
+        public const string Action_Remove = "remove";
+        /// <summary>
+        /// addcoupon
+        /// </summary>
+        public const string Action_AddCoupon = "addcoupon";
+        /// <summary>
+        /// removecoupon
+        /// </summary>
+        public const string Action_RemoveCoupon = "removecoupon";
+        /// <summary>
+        /// summary
+        /// </summary>
+        public const string Action_Summary = "summary";
+        /// <summary>
+        /// confirm
+        /// </summary>
+        public const string Action_Confirm = "confirm";
     }
 }

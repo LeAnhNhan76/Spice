@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spice.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,6 +9,11 @@ namespace Spice.Common.MethodStatic
 {
     public static class MethodStatic
     {
+        static MethodStatic()
+        {
+            CartCount = 0;
+        }
+        public static int CartCount { get; set; }
         public static string ToUnsignString(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -35,6 +41,62 @@ namespace Spice.Common.MethodStatic
                 str2 = str2.Replace("--", "-").ToLower();
             }
             return str2;
+        }
+        public static string ConvertToRawHtml(string source)
+        {
+            char[] array = new char[source.Length];
+            int arrayIndex = 0;
+            bool inside = false;
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                char let = source[i];
+                if (let == '<')
+                {
+                    inside = true;
+                    continue;
+                }
+                if (let == '>')
+                {
+                    inside = false;
+                    continue;
+                }
+                if (!inside)
+                {
+                    array[arrayIndex] = let;
+                    arrayIndex++;
+                }
+            }
+            return new string(array, 0, arrayIndex);
+        }
+        public static double DiscountedPrice(Coupon couponFromDb, double OriginalOrderTotal)
+        {
+            if(couponFromDb == null)
+            {
+                return OriginalOrderTotal;       
+            }
+            else
+            {
+                if(couponFromDb.MinimumAmount > OriginalOrderTotal)
+                {
+                    return OriginalOrderTotal;
+                }
+                else
+                {
+                    // everything is valid
+                    if(Convert.ToInt32(couponFromDb.CouponType) == (int)Coupon.ECouponType.Dollar)
+                    {
+                        // $10 off $100
+                        return Math.Round(OriginalOrderTotal - couponFromDb.Discount, 2);
+                    }
+                    if(Convert.ToInt32(couponFromDb.CouponType) == (int)Coupon.ECouponType.Percent)
+                    {
+                        // 10% off $100
+                        return Math.Round(OriginalOrderTotal - (OriginalOrderTotal * couponFromDb.Discount / 100), 2);
+                    }
+                }
+            }
+            return OriginalOrderTotal;
         }
     }
 }

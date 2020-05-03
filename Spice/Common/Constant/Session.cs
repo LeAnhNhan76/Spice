@@ -11,6 +11,10 @@ namespace Spice.Common
         /// ss_CartCount
         /// </summary>
         public const string Session_CartCount = "ss_CartCount";
-        
+        /// <summary>
+        /// ss_CouponCode
+        /// </summary>
+        public const string Session_CouponCode = "ss_CouponCode";
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using Spice.Common
+@using Spice.Common.MethodStatic
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 
@@ -10,6 +11,8 @@
     <title>@ViewData["Title"] - Spice</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body class="search-background">
@@ -45,15 +48,14 @@
                             </li>
                         }
                         @{
-                            int count = 0;
                             if (HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount) != null)
                             {
-                                count = HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount).Value;
+                                MethodStatic.CartCount = HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount).Value;
                             }
                         }
                         <li style="color: white">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                            <a asp-area="@Constant.Area_Customer" asp-controller="@Constant.Controller_Cart" asp-action="@Constant.Action_Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i> &nbsp; (@MethodStatic.CartCount)
                             </a>
                         </li>
                     </ul>
@@ -75,6 +77,7 @@
     <script src="https://cdn.tiny.cloud/1/kt75fibj5sckxivts92z8n10ies403wcji4gog2wdjntvn2k/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

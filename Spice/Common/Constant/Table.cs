@@ -22,5 +22,13 @@
         /// Table_ShoppingCarts
         /// </summary>
         public const string Table_ShoppingCarts = "ShoppingCarts";
+        /// <summary>
+        /// Table_OrderHeaders
+        /// </summary>
+        public const string Table_OrderHeaders = "OrderHeaders";
+        /// <summary>
+        /// Table_OrderDetails
+        /// </summary>
+        public const string Table_OrderDetails = "OrderDetails";
     }
 }

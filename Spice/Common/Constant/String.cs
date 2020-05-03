@@ -63,6 +63,14 @@
         /// </summary>
         public const string ItemDetails = "ItemDetails";
         /// <summary>
+        /// Shopping Cart
+        /// </summary>
+        public const string ShoppingCart = "Shopping Cart";
+        /// <summary>
+        /// Summary
+        /// </summary>
+        public const string Summary = "Summary";
+        /// <summary>
         /// Register
         /// </summary>
         public const string Register = "Register";
