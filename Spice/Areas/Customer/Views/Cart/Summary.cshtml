@@ -1,5 +1,9 @@
 ﻿@using Spice.Common;
 @using Spice.Common.MethodStatic;
+@using Microsoft.Extensions.Options;
+
+@inject IOptions<Spice.Utility.StripeSettings> Stripe;
+
 @model Spice.Models.ViewModels.OrderDetailCartViewModel;
 
 @{
@@ -116,6 +120,19 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-12 col-md-4 offset-lg-8">
+                                @{
+                                    var orderTotalForStripe = Model.OrderHeader.OrderTotal * 100;
+                                }
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="@Stripe.Value.PublishableKey"
+                                        data-amount="@orderTotalForStripe"
+                                        data-name="Spice Restaurant"
+                                        data-label="Place Order"
+                                        data-description="Good Food, Good Mood."
+                                        data-locale="auto"
+                                        data-allow-remember-me="false"
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                                </script>
                                 <button type="submit" id="btnPlaceOrder" onclick="return summary.onValidateInput()" value="Place Order" class="btn btn-success form-control">Place Order</button>
                             </div>
                         </div>
@@ -145,6 +162,8 @@
             $('#datepicker').on('change', function () {
                 summary.onSetPickUpTime();
             });
+
+            $('.stripe-button-el').hide();
         });
 
         var summary = {

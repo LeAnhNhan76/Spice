@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
 using Spice.Data;
 using Spice.Models;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Spice.Areas.Admin.Controllers
 {
@@ -16,18 +13,20 @@ namespace Spice.Areas.Admin.Controllers
     [Authorize(Roles = Constant.ManagerUser)]
     public class CouponController : Controller
     {
-        #region Properties
+        #region Variables and Properties
 
         private ApplicationDbContext _db;
 
-        #endregion
+        #endregion Variables and Properties
 
         #region Constructors
+
         public CouponController(ApplicationDbContext db)
         {
             _db = db;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Methods
 
@@ -40,7 +39,7 @@ namespace Spice.Areas.Admin.Controllers
             return View(coupon);
         }
 
-        #endregion
+        #endregion List
 
         #region Add & Edit
 
@@ -58,12 +57,12 @@ namespace Spice.Areas.Admin.Controllers
             {
                 // get picture
                 var files = HttpContext.Request.Form.Files;
-                if(files.Count > 0)
+                if (files.Count > 0)
                 {
                     byte[] picture = null;
-                    using(var fileStream = files[0].OpenReadStream())
+                    using (var fileStream = files[0].OpenReadStream())
                     {
-                        using(var memoryStream = new MemoryStream())
+                        using (var memoryStream = new MemoryStream())
                         {
                             await fileStream.CopyToAsync(memoryStream);
                             picture = memoryStream.ToArray();
@@ -81,12 +80,12 @@ namespace Spice.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var coupon = await _db.Coupon.FindAsync(id);
-            if(coupon == null)
+            if (coupon == null)
             {
                 return NotFound();
             }
@@ -121,7 +120,7 @@ namespace Spice.Areas.Admin.Controllers
             return View(coupon);
         }
 
-        #endregion
+        #endregion Add & Edit
 
         #region Details
 
@@ -140,8 +139,7 @@ namespace Spice.Areas.Admin.Controllers
             return View(coupon);
         }
 
-
-        #endregion
+        #endregion Details
 
         #region Delete
 
@@ -165,7 +163,7 @@ namespace Spice.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var coupon = await _db.Coupon.FindAsync(id);
-            if(coupon == null)
+            if (coupon == null)
             {
                 return NotFound();
             }
@@ -174,8 +172,8 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
+        #endregion Delete
 
-        #endregion
+        #endregion Methods
     }
 }

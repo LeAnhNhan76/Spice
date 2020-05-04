@@ -90,5 +90,41 @@
         /// DefaultConnection
         /// </summary>
         public const string DefaultConnection = "DefaultConnection";
+        /// <summary>
+        /// Stripe
+        /// </summary>
+        public const string Stripe = "Stripe";
+        /// <summary>
+        /// SecretKey
+        /// </summary>
+        public const string SecretKey = "SecretKey";
+        /// <summary>
+        /// PublishableKey
+        /// </summary>
+        public const string PublishableKey = "PublishableKey";
+        /// <summary>
+        /// VND
+        /// </summary>
+        public const string Currency_VND = "VND";
+        /// <summary>
+        /// USD
+        /// </summary>
+        public const string Currency_USD = "USD";
+        /// <summary>
+        /// Confirm Order
+        /// </summary>
+        public const string ConfirmOrder = "Confirm Order";
+        /// <summary>
+        /// Order History
+        /// </summary>
+        public const string OrderHistory = "Order History";
+        /// <summary>
+        /// application/json; charset=utf-8
+        /// </summary>
+        public const string Ajax_ContentType = "application/json; charset=utf-8";
+        /// <summary>
+        /// json
+        /// </summary>
+        public const string Json = "json";
     }
 }

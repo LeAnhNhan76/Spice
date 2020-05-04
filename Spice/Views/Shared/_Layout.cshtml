@@ -47,6 +47,16 @@
                                 </div>
                             </li>
                         }
+
+                        @if(User.IsInRole(Constant.ManagerUser) || User.IsInRole(Constant.CustomerEndUser))
+                        {
+                            <li class="nav-item">
+                                <a asp-area="@Constant.Area_Customer" asp-controller="@Constant.Controller_Order" asp-action="@Constant.Action_OrderHistory" class="nav-link">
+                                    Order History
+                                </a>
+                            </li>
+                        }
+
                         @{
                             if (HttpContextAccessor.HttpContext.Session.GetInt32(Constant.Session_CartCount) != null)
                             {

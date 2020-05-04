@@ -66,5 +66,13 @@
         /// confirm
         /// </summary>
         public const string Action_Confirm = "confirm";
+        /// <summary>
+        /// orderhistory
+        /// </summary>
+        public const string Action_OrderHistory = "orderhistory";
+        /// <summary>
+        /// getorderdetails
+        /// </summary>
+        public const string Action_GetOrderDetails = "getorderdetails";
     }
 }

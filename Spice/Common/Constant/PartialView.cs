@@ -38,5 +38,9 @@
         /// _ThumbnailAreaPartial
         /// </summary>
         public const string PartialView_ThumbnailAreaPartial = "_ThumbnailAreaPartial";
+        /// <summary>
+        /// _IndividualOrderDetailsPartial
+        /// </summary>
+        public const string PartialView_IndividualOrderDetailsPartial = "_IndividualOrderDetailsPartial";
     }
 }

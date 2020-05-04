@@ -16,14 +16,14 @@ namespace Spice.Areas.Admin.Controllers
     [Authorize(Roles = Constant.ManagerUser)]
     public class SubCategoryController : Controller
     {
-        #region Properties
+        #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        #endregion Properties
+        #endregion Variables and Properties
 
         #region Constructors
 
@@ -45,7 +45,7 @@ namespace Spice.Areas.Admin.Controllers
             return View(subCategory);
         }
 
-        #endregion
+        #endregion List
 
         #region Add & Edit
 
@@ -92,12 +92,12 @@ namespace Spice.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var subCategory = await _db.SubCategory.SingleOrDefaultAsync(x => x.Id == id);
-            if(subCategory == null)
+            if (subCategory == null)
             {
                 return NotFound();
             }
@@ -139,9 +139,10 @@ namespace Spice.Areas.Admin.Controllers
             return View(modelVM);
         }
 
-        #endregion
+        #endregion Add & Edit
 
         #region Details
+
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -162,9 +163,11 @@ namespace Spice.Areas.Admin.Controllers
             };
             return View(model);
         }
-        #endregion
+
+        #endregion Details
 
         #region Delete
+
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -190,7 +193,7 @@ namespace Spice.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var subCategory = await _db.SubCategory.FindAsync(id);
-            if(subCategory == null)
+            if (subCategory == null)
             {
                 return NotFound();
             }
@@ -199,7 +202,7 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
+        #endregion Delete
 
         #region Extensions
 
@@ -211,7 +214,7 @@ namespace Spice.Areas.Admin.Controllers
             return Json(new SelectList(subCategory, "Id", "Name"));
         }
 
-        #endregion
+        #endregion Extensions
 
         #endregion Methods
     }

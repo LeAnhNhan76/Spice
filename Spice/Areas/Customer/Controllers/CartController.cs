@@ -6,6 +6,7 @@ using Spice.Common.MethodStatic;
 using Spice.Data;
 using Spice.Models;
 using Spice.Models.ViewModels;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,14 @@ namespace Spice.Areas.Customer.Controllers
     [Area(Constant.Area_Customer)]
     public class CartController : Controller
     {
-        #region Properties
+        #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
 
         [BindProperty]
         public OrderDetailCartViewModel OrderDetailCartVM { get; set; }
 
-        #endregion Properties
+        #endregion Variables and Properties
 
         #region Constructors
 
@@ -114,7 +115,6 @@ namespace Spice.Areas.Customer.Controllers
             OrderDetailCartVM.OrderHeader.PickupName = applicationUser.Name;
             OrderDetailCartVM.OrderHeader.PhoneNumber = applicationUser.PhoneNumber;
             OrderDetailCartVM.OrderHeader.PickupTime = DateTime.Now;
-            
 
             //Coupon Code
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString(Constant.Session_CouponCode)))
@@ -129,7 +129,7 @@ namespace Spice.Areas.Customer.Controllers
 
         [HttpPost, ActionName(Constant.Action_Summary)]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SummaryPOST()
+        public async Task<IActionResult> SummaryPOST(string stripeToken)
         {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -169,7 +169,7 @@ namespace Spice.Areas.Customer.Controllers
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString(Constant.Session_CouponCode)))
             {
                 OrderDetailCartVM.OrderHeader.CouponCode = HttpContext.Session.GetString(Constant.Session_CouponCode);
-                var couponFromDb = await _db.Coupon.FirstOrDefaultAsync(c => c.Name.ToLower() == OrderDetailCartVM.OrderHeader.CouponCode);
+                var couponFromDb = await _db.Coupon.FirstOrDefaultAsync(c => c.Name.ToLower() == OrderDetailCartVM.OrderHeader.CouponCode.ToLower());
                 OrderDetailCartVM.OrderHeader.OrderTotal = MethodStatic.DiscountedPrice(couponFromDb, OrderDetailCartVM.OrderHeader.OrderTotalOriginal);
             }
             else
@@ -181,7 +181,38 @@ namespace Spice.Areas.Customer.Controllers
             HttpContext.Session.SetInt32(Constant.Session_CartCount, 0);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction(Constant.Action_Confirm, Constant.Controller_Order, new { id = OrderDetailCartVM.OrderHeader.Id});
+            var chargeOption = new ChargeCreateOptions()
+            {
+                Amount = Convert.ToInt32(OrderDetailCartVM.OrderHeader.OrderTotal * 100),
+                Currency = Constant.Currency_USD,
+                Description = "Order ID: " + OrderDetailCartVM.OrderHeader.Id,
+                Source = stripeToken
+            };
+
+            var chargeService = new ChargeService();
+            var charge = chargeService.Create(chargeOption);
+
+            if (charge.BalanceTransactionId == null)
+            {
+                OrderDetailCartVM.OrderHeader.PaymentStatus = Constant.PaymentStatus_Rejected;
+            }
+            else
+            {
+                OrderDetailCartVM.OrderHeader.TransactionId = charge.BalanceTransactionId;
+            }
+
+            if (charge.Status.ToLower() == Constant.ActionResult_Succeeded)
+            {
+                OrderDetailCartVM.OrderHeader.PaymentStatus = Constant.PaymentStatus_Approved;
+                OrderDetailCartVM.OrderHeader.Status = Constant.Status_Submitted;
+            }
+            else
+            {
+                OrderDetailCartVM.OrderHeader.PaymentStatus = Constant.PaymentStatus_Rejected;
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction(Constant.Action_Confirm, Constant.Controller_Order, new { id = OrderDetailCartVM.OrderHeader.Id });
         }
 
         #endregion Summary

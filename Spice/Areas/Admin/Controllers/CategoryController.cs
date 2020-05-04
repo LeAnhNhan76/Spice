@@ -12,11 +12,11 @@ namespace Spice.Areas.Admin.Controllers
     [Authorize(Roles = Constant.ManagerUser)]
     public class CategoryController : Controller
     {
-        #region Properties
+        #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
 
-        #endregion Properties
+        #endregion Variables and Properties
 
         #region Constructor
 
@@ -107,7 +107,7 @@ namespace Spice.Areas.Admin.Controllers
             return View(category);
         }
 
-        #endregion Add && Edit
+        #endregion Add & Edit
 
         #region Delete
 

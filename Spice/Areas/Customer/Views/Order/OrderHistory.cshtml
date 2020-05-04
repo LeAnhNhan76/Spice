@@ -1,0 +1,108 @@
+﻿@using Spice.Common
+@model IEnumerable<Spice.Models.ViewModels.OrderDetailViewModel>
+
+@{
+    ViewData[Constant.Title] = Constant.OrderHistory;
+    Layout = Constant.View_Layout;
+}
+<br />
+<br />
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Order History</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="@Constant.PartialView_CreateButtonPartial" />
+        </div>
+    </div>
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>@Html.DisplayNameFor(m => m.OrderHeader.Id)</th>
+                        <th>@Html.DisplayNameFor(m => m.OrderHeader.PickupName)</th>
+                        <th>@Html.DisplayNameFor(m => m.OrderHeader.ApplicationUser.Email)</th>
+                        <th>@Html.DisplayNameFor(m => m.OrderHeader.PickupTime)</th>
+                        <th>@Html.DisplayNameFor(m => m.OrderHeader.OrderTotal)</th>
+                        <th>Total items</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OrderHeader.Id</td>
+                            <td>@item.OrderHeader.PickupName</td>
+                            <td>@item.OrderHeader.ApplicationUser.Email</td>
+                            <td>@item.OrderHeader.PickupTime</td>
+                            <td>@item.OrderHeader.OrderTotal</td>
+                            <td>@item.OrderDetails.Count</td>
+                            <td>
+                                <button type="submit" class="btn btn-success anchorDetail" data-id="@item.OrderHeader.Id" data-toggle="modal">
+                                   <i class="far fa-list-alt"></i> &nbsp;  Details
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No Category exists...</p>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog-centered modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-light justify-content-center">
+                <h5 class="modal-title">Order Details</h5>
+            </div>
+            <div class="modal-body justify-content-center" id="myModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="width: 20%" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        $(function () {
+            $('.anchorDetail').click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+
+                var param = {
+                    id: id
+                };
+
+                $.ajax({
+                    type: '@Constant.HttpMethod_GET',
+                    url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderDetails',
+                    data: param,
+                    cache: false,
+                    dataType: '@Constant.Json',
+                    success: function (data) {
+                        debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModalContent').show();
+                    },
+                    error: function () {
+                        alert('Dynamic load content failed.');
+                    }
+                });
+            });
+
+        });
+    </script>
+
+}

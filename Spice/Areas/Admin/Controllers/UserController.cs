@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
 using Spice.Data;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Spice.Areas.Admin.Controllers
 {
@@ -15,20 +14,25 @@ namespace Spice.Areas.Admin.Controllers
     [Authorize(Roles = Constant.ManagerUser)]
     public class UserController : Controller
     {
-        #region Properties
+        #region Variables and Properties
+
         private readonly ApplicationDbContext _db;
-        #endregion
+
+        #endregion Variables and Properties
 
         #region Constructors
+
         public UserController(ApplicationDbContext db)
         {
             _db = db;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Methods
 
         #region List
+
         public async Task<IActionResult> Index()
         {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
@@ -37,9 +41,11 @@ namespace Spice.Areas.Admin.Controllers
             var applicationUser = await _db.ApplicationUser.Where(u => u.Id != claim.Value).ToListAsync();
             return View(applicationUser);
         }
-        #endregion
+
+        #endregion List
 
         #region Block & Unblock
+
         public async Task<IActionResult> Lock(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -47,7 +53,7 @@ namespace Spice.Areas.Admin.Controllers
                 return NotFound();
             }
             var applicationUser = await _db.ApplicationUser.FirstOrDefaultAsync(a => a.Id == id);
-            if(applicationUser == null)
+            if (applicationUser == null)
             {
                 return NotFound();
             }
@@ -74,11 +80,8 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
+        #endregion Block & Unblock
 
-        #endregion
-
-
-
+        #endregion Methods
     }
 }

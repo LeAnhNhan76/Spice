@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +6,10 @@ using Spice.Common;
 using Spice.Data;
 using Spice.Models;
 using Spice.Models.ViewModels;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Spice.Areas.Admin.Controllers
 {
@@ -18,7 +17,7 @@ namespace Spice.Areas.Admin.Controllers
     [Authorize(Roles = Constant.ManagerUser)]
     public class MenuItemController : Controller
     {
-        #region Properties
+        #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -26,7 +25,7 @@ namespace Spice.Areas.Admin.Controllers
         [BindProperty]
         public MenuItemViewModel MenuItemVM { get; set; }
 
-        #endregion
+        #endregion Variables and Properties
 
         #region Constructors
 
@@ -41,11 +40,12 @@ namespace Spice.Areas.Admin.Controllers
             };
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
         #region List
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -53,9 +53,10 @@ namespace Spice.Areas.Admin.Controllers
             return View(menuItem);
         }
 
-        #endregion
+        #endregion List
 
         #region Add & Edit
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -79,7 +80,7 @@ namespace Spice.Areas.Admin.Controllers
             var files = HttpContext.Request.Form.Files;
 
             var menuItemFromDb = _db.MenuItem.Find(MenuItemVM.MenuItem.Id);
-            if(files.Count > 0)
+            if (files.Count > 0)
             {
                 // files have been uploaded
                 var uploads = Path.Combine(webRootPath, Constant.Directory_Images);
@@ -105,12 +106,12 @@ namespace Spice.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             MenuItemVM.MenuItem = await _db.MenuItem.Include(x => x.Category).Include(x => x.SubCategory).SingleOrDefaultAsync(x => x.Id == id);
-            if(MenuItemVM.MenuItem == null)
+            if (MenuItemVM.MenuItem == null)
             {
                 return NotFound();
             }
@@ -122,7 +123,7 @@ namespace Spice.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPOST(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -170,7 +171,7 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
+        #endregion Add & Edit
 
         #region Details
 
@@ -190,9 +191,10 @@ namespace Spice.Areas.Admin.Controllers
             return View(MenuItemVM);
         }
 
-        #endregion
+        #endregion Details
 
         #region Delete
+
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -214,7 +216,7 @@ namespace Spice.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var menuItemFromDb = await _db.MenuItem.FindAsync(id);
-            if(menuItemFromDb == null)
+            if (menuItemFromDb == null)
             {
                 return NotFound();
             }
@@ -232,8 +234,8 @@ namespace Spice.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        #endregion
+        #endregion Delete
 
-        #endregion
+        #endregion Methods
     }
 }

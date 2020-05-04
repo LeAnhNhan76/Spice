@@ -10,6 +10,8 @@ using Spice.Common;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Spice.Services;
 using System;
+using Spice.Utility;
+using Stripe;
 
 namespace Spice
 {
@@ -32,6 +34,8 @@ namespace Spice
                 .AddDefaultTokenProviders()
                 //.AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<StripeSettings>(Configuration.GetSection(Constant.Stripe));
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
@@ -72,6 +76,10 @@ namespace Spice
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            StripeConfiguration.ApiKey = Configuration.GetSection(Constant.Stripe)[Constant.SecretKey];
+            // DOT NET 2.2  - StripeConfiguration.SetApiKey = Configuration.GetSection(Constant.Stripe)[Constant.SecretKey];
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
