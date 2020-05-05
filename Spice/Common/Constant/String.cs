@@ -125,6 +125,10 @@
         /// <summary>
         /// json
         /// </summary>
-        public const string Json = "json";
+        public const string DataType_Json = "json";
+        /// <summary>
+        /// html
+        /// </summary>
+        public const string DataType_Html = "html";
     }
 }

@@ -90,14 +90,15 @@
                     url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderDetails',
                     data: param,
                     cache: false,
-                    dataType: '@Constant.Json',
+                    dataType: '@Constant.DataType_Html',
                     success: function (data) {
                         debugger;
                         $('#myModalContent').html(data);
-                        $('#myModalContent').show();
+                        $('#myModal').modal('show');
                     },
-                    error: function () {
-                        alert('Dynamic load content failed.');
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
                     }
                 });
             });
