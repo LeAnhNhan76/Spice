@@ -52,12 +52,15 @@ namespace Spice.Areas.Customer.Controllers
         #region Order History
 
         [Authorize]
-        public async Task<IActionResult> OrderHistory()
+        public async Task<IActionResult> OrderHistory(int pageIndex = 1)
         {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            List<OrderDetailViewModel> orderList = new List<OrderDetailViewModel>();
+            OrderListViewModel orderListVM = new OrderListViewModel() {
+                Orders = new List<OrderDetailViewModel>()
+            };
+
             List<OrderHeader> orderHeaderList = await _db.OrderHeader.Include(o => o.ApplicationUser).Where(o => o.UserId == claim.Value).ToListAsync();
 
             foreach (var item in orderHeaderList)
@@ -67,10 +70,29 @@ namespace Spice.Areas.Customer.Controllers
                     OrderHeader = item,
                     OrderDetails = await _db.OrderDetail.Where(od => od.OrderId == item.Id).ToListAsync()
                 };
-                orderList.Add(order);
+                orderListVM.Orders.Add(order);
             }
 
-            return View(orderList);
+            var count = orderListVM.Orders.Count;
+            orderListVM.Orders = orderListVM.Orders
+                .OrderByDescending(o => o.OrderHeader.Id)
+                .Skip((pageIndex - 1) * Constant.pageSize)
+                .Take(Constant.pageSize).ToList();
+
+            orderListVM.PagingInfo = new PagingInfo()
+            {
+                CurrentPage = pageIndex,
+                ItemsPerPage = Constant.pageSize,
+                TotalItem = count,
+                urlParam = string.Concat(
+                  "/", Constant.Area_Customer,
+                  "/", Constant.Controller_Order,
+                  "/", Constant.Action_OrderHistory,
+                  "?", Constant.Parameter_PageIndex ,
+                  ":")
+            };
+
+            return View(orderListVM);
         }
 
         [HttpGet]
