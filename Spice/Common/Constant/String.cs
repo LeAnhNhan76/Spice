@@ -119,6 +119,10 @@
         /// </summary>
         public const string OrderHistory = "Order History";
         /// <summary>
+        /// Manage Order
+        /// </summary>
+        public const string ManageOrder = "Manage Order";
+        /// <summary>
         /// application/json; charset=utf-8
         /// </summary>
         public const string Ajax_ContentType = "application/json; charset=utf-8";
@@ -130,5 +134,9 @@
         /// html
         /// </summary>
         public const string DataType_Html = "html";
+        /// <summary>
+        /// No Instructions
+        /// </summary>
+        public const string NoInstructions = "No Instructions";
     }
 }

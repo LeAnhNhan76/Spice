@@ -74,5 +74,17 @@
         /// getorderdetails
         /// </summary>
         public const string Action_GetOrderDetails = "getorderdetails";
+        /// <summary>
+        /// getorderstatus
+        /// </summary>
+        public const string Action_GetOrderStatus = "getorderstatus";
+        /// <summary>
+        /// manageorder
+        /// </summary>
+        public const string Action_ManageOrder = "manageorder";
+        /// <summary>
+        /// orderpickup
+        /// </summary>
+        public const string Action_OrderPickup = "orderpickup";
     }
 }

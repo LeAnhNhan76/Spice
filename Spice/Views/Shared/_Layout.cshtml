@@ -48,12 +48,31 @@
                             </li>
                         }
 
-                        @if(User.IsInRole(Constant.ManagerUser) || User.IsInRole(Constant.CustomerEndUser))
+                        @if (User.IsInRole(Constant.ManagerUser) || User.IsInRole(Constant.CustomerEndUser))
                         {
                             <li class="nav-item">
                                 <a asp-area="@Constant.Area_Customer" asp-controller="@Constant.Controller_Order" asp-action="@Constant.Action_OrderHistory" class="nav-link">
                                     Order History
                                 </a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole(Constant.KitchenUser) || User.IsInRole(Constant.FrontDeskUser) || User.IsInRole(Constant.ManagerUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Order
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    @if (User.IsInRole(Constant.KitchenUser) || User.IsInRole(Constant.ManagerUser))
+                                    {
+                                        <a class="dropdown-item" asp-action="@Constant.Action_ManageOrder" asp-controller="@Constant.Controller_Order" asp-area="@Constant.Area_Customer">Manage Order</a>
+                                    }
+                                    @if (User.IsInRole(Constant.FrontDeskUser) || User.IsInRole(Constant.ManagerUser))
+                                    {
+                                        <a class="dropdown-item" asp-action="@Constant.Action_OrderPickup" asp-controller="@Constant.Controller_Order" asp-area="@Constant.Area_Customer">Order Pickup</a>
+                                    }
+                                </div>
                             </li>
                         }
 

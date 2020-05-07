@@ -12,7 +12,7 @@ namespace Spice.Common.MethodStatic
         static MethodStatic()
         {
             CartCount = 0;
-            ListStatusOrderActive = new List<string>() { Constant.Status_InProcess, Constant.Status_Ready, Constant.Status_Completed };
+            ListStatusOrderActive = new List<string>() { Constant.Status_Submitted, Constant.Status_InProcess, Constant.Status_Ready, Constant.Status_Completed };
         }
         public static int CartCount { get; set; }
         public static List<string> ListStatusOrderActive { get; set; }

@@ -108,8 +108,9 @@
                         $('#myModal').modal('show');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
+                        alert("Dynamic content load failed");
+                        //alert(xhr.status);
+                        //alert(thrownError);
                     }
                 });
             });
@@ -125,7 +126,7 @@
 
                 $.ajax({
                     type: '@Constant.HttpMethod_GET',
-                    url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderDetails',
+                    url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderStatus',
                     data: param,
                     cache: false,
                     dataType: '@Constant.DataType_Html',
@@ -135,8 +136,9 @@
                         $('#myModal').modal('show');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
+                        alert("Dynamic content load failed");
+                        //alert(xhr.status);
+                        //alert(thrownError);
                     }
                 });
 

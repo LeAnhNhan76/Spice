@@ -6,8 +6,10 @@ using Spice.Data;
 using Spice.Models;
 using Spice.Models.ViewModels;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Spice.Areas.Customer.Controllers
@@ -57,7 +59,8 @@ namespace Spice.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            OrderListViewModel orderListVM = new OrderListViewModel() {
+            OrderListViewModel orderListVM = new OrderListViewModel()
+            {
                 Orders = new List<OrderDetailViewModel>()
             };
 
@@ -88,7 +91,7 @@ namespace Spice.Areas.Customer.Controllers
                   "/", Constant.Area_Customer,
                   "/", Constant.Controller_Order,
                   "/", Constant.Action_OrderHistory,
-                  "?", Constant.Parameter_PageIndex ,
+                  "?", Constant.Parameter_PageIndex,
                   ":")
             };
 
@@ -107,13 +110,39 @@ namespace Spice.Areas.Customer.Controllers
             return PartialView(Constant.PartialView_IndividualOrderDetailsPartial, orderDetailVM);
         }
 
+        [HttpGet]
         public IActionResult GetOrderStatus(int Id)
         {
             return PartialView(Constant.PartialView_OrderStatusPartial, _db.OrderHeader.Where(o => o.Id == Id).FirstOrDefault().Status);
-
         }
 
         #endregion Order History
+
+        #region Manage Order
+
+        [Authorize(Roles = Constant.KitchenUser + "," + Constant.ManagerUser)]
+        public async Task<IActionResult> ManageOrder(int pageIndex = 1)
+        {
+            List<OrderDetailViewModel> orderDetailsVM = new List<OrderDetailViewModel>();
+
+            List<OrderHeader> orderHeaderList = await _db.OrderHeader
+                .Where(o => o.Status == Constant.Status_Submitted || o.Status == Constant.Status_InProcess)
+                .OrderBy(o => o.PickupTime).ToListAsync();
+
+            foreach (var item in orderHeaderList)
+            {
+                var order = new OrderDetailViewModel()
+                {
+                    OrderHeader = item,
+                    OrderDetails = await _db.OrderDetail.Where(od => od.OrderId == item.Id).ToListAsync()
+                };
+                orderDetailsVM.Add(order);
+            }
+
+            return View(orderDetailsVM);
+        }
+
+        #endregion Manage Order
 
         public IActionResult Index()
         {
