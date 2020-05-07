@@ -42,5 +42,9 @@
         /// _IndividualOrderDetailsPartial
         /// </summary>
         public const string PartialView_IndividualOrderDetailsPartial = "_IndividualOrderDetailsPartial";
+        /// <summary>
+        /// _OrderStatusPartial
+        /// </summary>
+        public const string PartialView_OrderStatusPartial = "_OrderStatusPartial";
     }
 }

@@ -10,10 +10,10 @@ namespace Spice.Common
         /// <summary>
         /// sucessful
         /// </summary>
-        public const string ActionResult_Sucessful = "sucessful";
+        public const string JsonResult_Sucessful = "sucessful";
         /// <summary>
         /// succeeded
         /// </summary>
-        public const string ActionResult_Succeeded = "succeeded";
+        public const string JsonResult_Succeeded = "succeeded";
     }
 }

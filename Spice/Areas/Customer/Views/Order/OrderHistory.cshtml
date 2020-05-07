@@ -1,4 +1,5 @@
 ﻿@using Spice.Common
+@using Spice.Common.MethodStatic
 @model Spice.Models.ViewModels.OrderListViewModel
 
 @{
@@ -43,8 +44,14 @@
                             <td>@item.OrderDetails.Count</td>
                             <td>
                                 <button type="submit" class="btn btn-success anchorDetail" data-id="@item.OrderHeader.Id" data-toggle="modal">
-                                   <i class="far fa-list-alt"></i> &nbsp;  Details
+                                    <i class="far fa-list-alt"></i> &nbsp;  Details
                                 </button>
+                                @if (MethodStatic.ListStatusOrderActive.Contains(item.OrderHeader.Status))
+                                {
+                                    <button type="button" class="btn btn-info btnOrderStatus" data-id="@item.OrderHeader.Id" data-toggle="modal">
+                                        <i class="far fa-clock"></i> Status
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }
@@ -105,6 +112,34 @@
                         alert(thrownError);
                     }
                 });
+            });
+
+
+            $('.btnOrderStatus').on('click', function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+
+                var param = {
+                    id: id
+                };
+
+                $.ajax({
+                    type: '@Constant.HttpMethod_GET',
+                    url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderDetails',
+                    data: param,
+                    cache: false,
+                    dataType: '@Constant.DataType_Html',
+                    success: function (data) {
+                        debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+
             });
 
         });

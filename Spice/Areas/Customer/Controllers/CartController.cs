@@ -201,7 +201,7 @@ namespace Spice.Areas.Customer.Controllers
                 OrderDetailCartVM.OrderHeader.TransactionId = charge.BalanceTransactionId;
             }
 
-            if (charge.Status.ToLower() == Constant.ActionResult_Succeeded)
+            if (charge.Status.ToLower() == Constant.JsonResult_Succeeded)
             {
                 OrderDetailCartVM.OrderHeader.PaymentStatus = Constant.PaymentStatus_Approved;
                 OrderDetailCartVM.OrderHeader.Status = Constant.Status_Submitted;
