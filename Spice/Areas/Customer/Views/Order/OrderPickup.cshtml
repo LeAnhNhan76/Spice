@@ -1,0 +1,138 @@
+﻿@using Spice.Common
+@using Spice.Common.MethodStatic
+@model Spice.Models.ViewModels.OrderListViewModel
+
+@{
+    ViewData[Constant.Title] = Constant.OrderPickup;
+    Layout = Constant.View_Layout;
+}
+
+    <form method="post">
+        <br /><br />
+        <h2 class="text-info">Orders Ready for Pickup :</h2>
+        <div class="border backgroundWhite">
+            <div class="container border mb-4" style="height: 60px; ">
+                <div class="row container">
+                    <div class="col-11">
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-4">
+                                @Html.Editor(Constant.SearchByName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name..." } })
+                            </div>
+                            <div class="col-4">
+                                @Html.Editor(Constant.SearchByPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone..." } })
+                            </div>
+                            <div class="col-4">
+                                @Html.Editor(Constant.SearchByEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email..." } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="row" style="padding-top: 10px">
+                            <button type="submit" name="submit" value="Search" class="btn btn-info form-control">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                @if (Model.Orders.Count() > 0)
+                {
+                    <table class="table table-striped border">
+                        <thead>
+                            <tr class="table-secondary">
+                                <th>@Html.DisplayNameFor(m => m.Orders[0].OrderHeader.Id)</th>
+                                <th>@Html.DisplayNameFor(m => m.Orders[0].OrderHeader.PickupName)</th>
+                                <th>@Html.DisplayNameFor(m => m.Orders[0].OrderHeader.ApplicationUser.Email)</th>
+                                <th>@Html.DisplayNameFor(m => m.Orders[0].OrderHeader.PickupTime)</th>
+                                <th>@Html.DisplayNameFor(m => m.Orders[0].OrderHeader.OrderTotal)</th>
+                                <th>Total items</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Orders)
+                            {
+                                <tr>
+                                    <td>@item.OrderHeader.Id</td>
+                                    <td>@item.OrderHeader.PickupName</td>
+                                    <td>@item.OrderHeader.ApplicationUser.Email</td>
+                                    <td>@item.OrderHeader.PickupTime</td>
+                                    <td>@item.OrderHeader.OrderTotal</td>
+                                    <td>@item.OrderDetails.Count</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success anchorDetail" data-id="@item.OrderHeader.Id" data-toggle="modal">
+                                            <i class="far fa-list-alt"></i> &nbsp;  Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div page-model="@Model.PagingInfo" page-classes-enabled="true" page-class="btn border"
+                         page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group float-right">
+                    </div>
+                    <br />
+                }
+                else
+                {
+                    <p>No Order Ready for Pickup exists...</p>
+                }
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog-centered modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-light">
+                        <div class="col-10 offset-1">
+                            <center><h5 class="modal-title">Order Details</h5></center>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-outline-secondary close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body justify-content-center" id="myModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('.anchorDetail').click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+
+                var param = {
+                    id: id
+                };
+
+                $.ajax({
+                    type: '@Constant.HttpMethod_GET',
+                    url: '/@Constant.Area_Customer/@Constant.Controller_Order/@Constant.Action_GetOrderDetails',
+                    data: param,
+                    cache: false,
+                    dataType: '@Constant.DataType_Html',
+                    success: function (data) {
+                        debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert("Dynamic content load failed");
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+}

@@ -119,6 +119,10 @@
         /// </summary>
         public const string OrderHistory = "Order History";
         /// <summary>
+        /// Order Pickup
+        /// </summary>
+        public const string OrderPickup = "Order Pickup";
+        /// <summary>
         /// Manage Order
         /// </summary>
         public const string ManageOrder = "Manage Order";
@@ -138,5 +142,17 @@
         /// No Instructions
         /// </summary>
         public const string NoInstructions = "No Instructions";
+        /// <summary>
+        /// searchName
+        /// </summary>
+        public const string SearchByName = "searchName";
+        /// <summary>
+        /// searchPhone
+        /// </summary>
+        public const string SearchByPhone = "searchPhone";
+        /// <summary>
+        /// searchEmail
+        /// </summary>
+        public const string SearchByEmail = "searchEmail";
     }
 }

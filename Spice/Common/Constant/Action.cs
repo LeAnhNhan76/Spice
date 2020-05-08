@@ -86,5 +86,17 @@
         /// orderpickup
         /// </summary>
         public const string Action_OrderPickup = "orderpickup";
+        /// <summary>
+        /// orderprepare
+        /// </summary>
+        public const string Action_OrderPrepare = "orderprepare";
+        /// <summary>
+        /// ordercancel
+        /// </summary>
+        public const string Action_OrderCancel = "ordercancel";
+        /// <summary>
+        /// orderready
+        /// </summary>
+        public const string Action_OrderReady = "orderready";
     }
 }

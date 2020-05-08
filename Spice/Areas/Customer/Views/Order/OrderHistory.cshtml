@@ -13,9 +13,6 @@
         <div class="col-6">
             <h2 class="text-info">Order History</h2>
         </div>
-        <div class="col-6 text-right">
-            <partial name="@Constant.PartialView_CreateButtonPartial" />
-        </div>
     </div>
     <div>
         @if (Model.Orders.Count() > 0)
@@ -64,7 +61,7 @@
         }
         else
         {
-            <p>No Category exists...</p>
+            <p>No Order History exists...</p>
         }
     </div>
 </div>
