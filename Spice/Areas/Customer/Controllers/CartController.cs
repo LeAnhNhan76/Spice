@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
@@ -21,6 +22,7 @@ namespace Spice.Areas.Customer.Controllers
         #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
+        private readonly IEmailSender _emailSender;
 
         [BindProperty]
         public OrderDetailCartViewModel OrderDetailCartVM { get; set; }
@@ -29,9 +31,10 @@ namespace Spice.Areas.Customer.Controllers
 
         #region Constructors
 
-        public CartController(ApplicationDbContext db)
+        public CartController(ApplicationDbContext db, IEmailSender emailSender)
         {
             _db = db;
+            _emailSender = emailSender;
         }
 
         #endregion Constructors
@@ -203,6 +206,11 @@ namespace Spice.Areas.Customer.Controllers
 
             if (charge.Status.ToLower() == Constant.JsonResult_Succeeded)
             {
+                //send email create new order to customer
+               await _emailSender.SendEmailAsync(_db.ApplicationUser.FirstOrDefault(a => a.Id == claim.Value)?.Email
+                    , Constant.Email_Title_OrderCreated + " " + OrderDetailCartVM.OrderHeader.Id.ToString()
+                    , Constant.Email_Subject_OrderCreated);
+
                 OrderDetailCartVM.OrderHeader.PaymentStatus = Constant.PaymentStatus_Approved;
                 OrderDetailCartVM.OrderHeader.Status = Constant.Status_Submitted;
             }

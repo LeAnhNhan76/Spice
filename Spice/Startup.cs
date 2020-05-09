@@ -38,6 +38,7 @@ namespace Spice
             services.Configure<StripeSettings>(Configuration.GetSection(Constant.Stripe));
 
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<EmailOptions>(Configuration);
 
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
@@ -57,8 +58,8 @@ namespace Spice
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = Configuration.GetSection(Constant.Facebook)[Constant.Key_Facebook_AppId];
-                facebookOptions.AppSecret = Configuration.GetSection(Constant.Facebook)[Constant.Key_Facebook_AppSecret];
+                facebookOptions.AppId = Constant.Key_Facebook_AppId;
+                facebookOptions.AppSecret = Constant.Key_Facebook_AppSecret;
             });
 
             services.AddSession(options => {
