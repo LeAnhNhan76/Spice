@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Common;
 using Spice.Data;
 using Spice.Models;
 using Spice.Models.ViewModels;
+using Stripe;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,14 +23,17 @@ namespace Spice.Areas.Customer.Controllers
         #region Variables and Properties
 
         private readonly ApplicationDbContext _db;
+        private readonly IEmailSender _emailSender;
+        
 
         #endregion Variables and Properties
 
         #region Constructors
 
-        public OrderController(ApplicationDbContext db)
+        public OrderController(ApplicationDbContext db, IEmailSender emailSender)
         {
             _db = db;
+            _emailSender = emailSender;
         }
 
         #endregion Constructors
@@ -168,6 +173,9 @@ namespace Spice.Areas.Customer.Controllers
             await _db.SaveChangesAsync();
 
             // Email logic to notify customer that order is ready for pickup
+            await _emailSender.SendEmailAsync(_db.ApplicationUser.FirstOrDefault(a => a.Id == orderHeader.UserId)?.Email
+                    , Constant.Email_Title_OrderReady + " " + orderHeader.Id.ToString()
+                    , Constant.Email_Subject_OrderReady);
 
             return RedirectToAction(Constant.Action_ManageOrder, Constant.Controller_Order);
         }
@@ -183,7 +191,10 @@ namespace Spice.Areas.Customer.Controllers
             orderHeader.Status = Constant.Status_Cancelled;
             await _db.SaveChangesAsync();
 
-            // Email logic to notify customer that order is ready for pickup
+            // Email logic to notify customer that order canceled
+            await _emailSender.SendEmailAsync(_db.ApplicationUser.FirstOrDefault(a => a.Id == orderHeader.UserId)?.Email
+                    , Constant.Email_Title_OrderCanceled + " " + orderHeader.Id.ToString()
+                    , Constant.Email_Subject_OrderCanceled);
 
             return RedirectToAction(Constant.Action_ManageOrder, Constant.Controller_Order);
         }
@@ -315,6 +326,9 @@ namespace Spice.Areas.Customer.Controllers
             await _db.SaveChangesAsync();
 
             // Email logic to notify customer that order is completed
+            await _emailSender.SendEmailAsync(_db.ApplicationUser.FirstOrDefault(a => a.Id == orderHeader.UserId)?.Email
+                    , Constant.Email_Title_OrderCompleted + " " + orderHeader.Id.ToString()
+                    , Constant.Email_Subject_OrderCompleted);
 
             return RedirectToAction(Constant.Action_OrderPickup, Constant.Controller_Order);
         }

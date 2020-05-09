@@ -101,24 +101,24 @@ namespace Spice.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     // check and add roles manager
-                    if (!await _roleManagement.RoleExistsAsync(Constant.CustomerEndUser))
-                    {
-                        await _roleManagement.CreateAsync(new IdentityRole(Constant.CustomerEndUser));
-                    }
-                    if (!await _roleManagement.RoleExistsAsync(Constant.ManagerUser))
-                    {
-                        await _roleManagement.CreateAsync(new IdentityRole(Constant.ManagerUser));
-                    }
-                    if (!await _roleManagement.RoleExistsAsync(Constant.KitchenUser))
-                    {
-                        await _roleManagement.CreateAsync(new IdentityRole(Constant.KitchenUser));
-                    }
-                    if (!await _roleManagement.RoleExistsAsync(Constant.FrontDeskUser))
-                    {
-                        await _roleManagement.CreateAsync(new IdentityRole(Constant.FrontDeskUser));
-                    }
+                    //if (!await _roleManagement.RoleExistsAsync(Constant.CustomerEndUser))
+                    //{
+                    //    await _roleManagement.CreateAsync(new IdentityRole(Constant.CustomerEndUser));
+                    //}
+                    //if (!await _roleManagement.RoleExistsAsync(Constant.ManagerUser))
+                    //{
+                    //    await _roleManagement.CreateAsync(new IdentityRole(Constant.ManagerUser));
+                    //}
+                    //if (!await _roleManagement.RoleExistsAsync(Constant.KitchenUser))
+                    //{
+                    //    await _roleManagement.CreateAsync(new IdentityRole(Constant.KitchenUser));
+                    //}
+                    //if (!await _roleManagement.RoleExistsAsync(Constant.FrontDeskUser))
+                    //{
+                    //    await _roleManagement.CreateAsync(new IdentityRole(Constant.FrontDeskUser));
+                    //}
 
-                    // aadd user role
+                    // add user role
 
                     switch (role)
                     {

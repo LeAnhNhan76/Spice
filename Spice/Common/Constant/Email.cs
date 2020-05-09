@@ -23,5 +23,29 @@ namespace Spice.Common
         /// Email_Subject_OrderCreated
         /// </summary>
         public const string Email_Subject_OrderCreated = "order have been submitted successfully.";
+        /// <summary>
+        /// Email_Title_OrderCanceled
+        /// </summary>
+        public const string Email_Title_OrderCanceled = "Spice - Order Canceled";
+        /// <summary>
+        /// Email_Subject_OrderCanceled
+        /// </summary>
+        public const string Email_Subject_OrderCanceled = "order have been canceled successfully.";
+        /// <summary>
+        /// Email_Title_OrderReady
+        /// </summary>
+        public const string Email_Title_OrderReady = "Spice - Order Ready to Pickup";
+        /// <summary>
+        /// Email_Subject_OrderReady
+        /// </summary>
+        public const string Email_Subject_OrderReady = "order have been ready to pickup.";
+        /// <summary>
+        /// Email_Title_OrderCompleted
+        /// </summary>
+        public const string Email_Title_OrderCompleted = "Spice - Order Completed";
+        /// <summary>
+        /// Email_Subject_OrderCompleted
+        /// </summary>
+        public const string Email_Subject_OrderCompleted = "order have been completed successfully.";
     }
 }
