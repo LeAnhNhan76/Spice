@@ -193,7 +193,8 @@ namespace Spice.Areas.Customer.Controllers
 
         #region Order Pickup
 
-        [Authorize]
+        [Authorize(Roles = Constant.FrontDeskUser + "," + Constant.ManagerUser)]
+        [HttpGet]
         public async Task<IActionResult> OrderPickup(int pageIndex = 1, string searchName = null, string searchPhone = null, string searchEmail = null)
         {
             OrderListViewModel orderListVM = new OrderListViewModel()
@@ -300,6 +301,24 @@ namespace Spice.Areas.Customer.Controllers
 
             return View(orderListVM);
         }
+
+        [Authorize(Roles = Constant.FrontDeskUser + "," + Constant.ManagerUser)]
+        [HttpPost, ActionName(Constant.Action_OrderPickup)]
+        public async Task<IActionResult> OrderPickupPost(int orderId)
+        {
+            OrderHeader orderHeader = await _db.OrderHeader.FindAsync(orderId);
+            if (orderHeader == null)
+            {
+                return NotFound();
+            }
+            orderHeader.Status = Constant.Status_Completed;
+            await _db.SaveChangesAsync();
+
+            // Email logic to notify customer that order is completed
+
+            return RedirectToAction(Constant.Action_OrderPickup, Constant.Controller_Order);
+        }
+
 
         #endregion
 

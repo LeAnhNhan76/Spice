@@ -55,6 +55,12 @@ namespace Spice
 
             });
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration.GetSection(Constant.Facebook)[Constant.Key_Facebook_AppId];
+                facebookOptions.AppSecret = Configuration.GetSection(Constant.Facebook)[Constant.Key_Facebook_AppSecret];
+            });
+
             services.AddSession(options => {
                 options.Cookie.IsEssential = true;
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

@@ -154,5 +154,9 @@
         /// searchEmail
         /// </summary>
         public const string SearchByEmail = "searchEmail";
+        /// <summary>
+        /// Facebook
+        /// </summary>
+        public const string Facebook = "Facebook";
     }
 }

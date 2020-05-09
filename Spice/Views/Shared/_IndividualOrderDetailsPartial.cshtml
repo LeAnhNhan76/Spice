@@ -1,7 +1,7 @@
 ﻿@using Spice.Common
 @model Spice.Models.ViewModels.OrderDetailViewModel
 
-<form method="post">
+<form  asp-action="@Constant.Action_OrderPickup" asp-controller="@Constant.Controller_Order" asp-route-orderId="@Model.OrderHeader.Id" method="post">
     <div class="container row border ml-1 backgroundWhiteBorder10Padding">
         <div class="col-lg-8 col-12" style="border-right: 1px solid #b9b9b9">
             <br />
@@ -91,7 +91,7 @@
             @if (Model.OrderHeader.Status == Constant.Status_Ready
            && (User.IsInRole(Constant.ManagerUser) || User.IsInRole(Constant.FrontDeskUser)))
             {
-                <button type="submit"  class="btn btn-success form-control"><i class="far fa-thumbs-up"></i>&nbsp; Confirm Pickup</button>
+                <button type="submit" class="btn btn-success form-control"><i class="far fa-thumbs-up"></i>&nbsp; Confirm Pickup</button>
             }
             else
             {
